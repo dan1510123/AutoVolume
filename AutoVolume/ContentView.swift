@@ -12,21 +12,41 @@ import CoreLocation
 struct ContentView: View {
     
     let locationManager = CLLocationManager()
+    let locationDelegate = LocationDelegate()
+    
+    @State var statusString: String = "Starting up..."
+    
+    var currentVolume: Float = 0.5
     
     init() {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = locationDelegate
+        currentVolume = getCurrentVolume()
         
+        locationManager.startUpdatingLocation()
     }
     
     var body: some View {
-        Text("Hello, world!")
+        Text(statusString)
             .padding()
-        Button("Update Volume", action: update)
+        Button("Pause usage", action: pause)
     }
     
-    func update() {
-        locationManager.requestWhenInUseAuthorization()
-        
+    func pause() {
+        locationManager.stopUpdatingLocation()
+        statusString = "Paused"
+    }
+    
+    func getCurrentVolume() -> Float {
+        let volumeView = MPVolumeView()
+        if let slider = volumeView.subviews.first as? UISlider
+        {
+            return slider.value
+        }
+        else {
+            return 0
+        }
     }
     
     func updateVolume(volume: Float) {
