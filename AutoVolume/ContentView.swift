@@ -14,7 +14,7 @@ struct ContentView: View {
     @ObservedObject var vlHandler: VolumeLocationHandler = VolumeLocationHandler()
     let locationManager = CLLocationManager()
     
-    @State var statusString: String = "Starting up..."
+    @State var statusString: String = "Running..."
     @State var pauseButtonText: String = "Pause"
     @State var paused: Bool = false
     
@@ -27,16 +27,19 @@ struct ContentView: View {
     }
     
     var body: some View {
-        Text(statusString).padding()
-        Text("Min volume: \(vlHandler.minVolume, specifier: "%.f")/16").padding()
-        Slider(value: $vlHandler.minVolume, in: 00...16, step: 1).padding()
-        Text("Max volume: \(vlHandler.maxVolume, specifier: "%.f")/16").padding()
-        Slider(value: $vlHandler.maxVolume, in: 00...16, step: 1).padding()
-        Text("Rate of increase: \(vlHandler.rateOfIncreaseNumerator)/ \(vlHandler.rateOfIncreaseDenominator)").padding()
-        Slider(value: $vlHandler.rateOfIncreaseNumerator, in: 00...1000, step: 1).padding()
-        Slider(value: $vlHandler.rateOfIncreaseDenominator, in: 1...1000, step: 1).padding()
-        Button(pauseButtonText, action: pause)
-        Text("Current volume: \(vlHandler.currentVolume, specifier: "%.f")/16").padding()
+        Text("Auto Volume").bold().padding()
+        VStack {
+            Text("Min volume: \(vlHandler.minVolume, specifier: "%.f")/16").padding()
+            Slider(value: $vlHandler.minVolume, in: 00...16, step: 1).padding()
+            Text("Max volume: \(vlHandler.maxVolume, specifier: "%.f")/16").padding()
+            Slider(value: $vlHandler.maxVolume, in: 00...16, step: 1).padding()
+            Text("Rate of increase: \(vlHandler.rateOfIncreaseNumerator)/ \(vlHandler.rateOfIncreaseDenominator)").padding()
+            Slider(value: $vlHandler.rateOfIncreaseNumerator, in: 00...1000, step: 1).padding()
+            Slider(value: $vlHandler.rateOfIncreaseDenominator, in: 1...1000, step: 1).padding()
+            Text(statusString).padding()
+            Button(pauseButtonText, action: pause)
+            Text("Current volume: \(vlHandler.currentVolume, specifier: "%.f")/16").padding()
+        }
     }
     
     func pause() {
