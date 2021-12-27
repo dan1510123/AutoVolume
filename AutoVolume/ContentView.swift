@@ -15,6 +15,11 @@ struct ContentView: View {
     let locationDelegate = LocationDelegate()
     
     @State var statusString: String = "Starting up..."
+    @State var pauseButtonText: String = "Pause"
+    @State var paused: Bool = false
+    
+    @State var minVolume: Double = 0
+    @State var maxVolume: Double = 0
     
     var currentVolume: Float = 0.5
     
@@ -28,14 +33,27 @@ struct ContentView: View {
     }
     
     var body: some View {
-        Text(statusString)
-            .padding()
-        Button("Pause usage", action: pause)
+        Text(statusString).padding()
+        Text("Min volume: \(minVolume, specifier: "%.f")/16").padding()
+        Slider(value: $minVolume, in: 00...16, step: 1).padding()
+        Text("Max volume: \(maxVolume, specifier: "%.f")/16").padding()
+        Slider(value: $maxVolume, in: 00...16, step: 1).padding()
+        Button(pauseButtonText, action: pause)
     }
     
     func pause() {
-        locationManager.stopUpdatingLocation()
-        statusString = "Paused"
+        if(paused) {
+            locationManager.startUpdatingLocation()
+            statusString = "Running..."
+            pauseButtonText = "Pause"
+            paused = false
+        }
+        else {
+            locationManager.stopUpdatingLocation()
+            statusString = "Paused"
+            pauseButtonText = "Start"
+            paused = true
+        }
     }
     
     func getCurrentVolume() -> Float {
@@ -58,7 +76,6 @@ struct ContentView: View {
             }
         }
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
