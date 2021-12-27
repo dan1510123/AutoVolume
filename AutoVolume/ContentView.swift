@@ -11,15 +11,12 @@ import CoreLocation
 
 struct ContentView: View {
     
+    @ObservedObject var locationDelegate: LocationDelegate = LocationDelegate()
     let locationManager = CLLocationManager()
-    let locationDelegate = LocationDelegate()
     
     @State var statusString: String = "Starting up..."
     @State var pauseButtonText: String = "Pause"
     @State var paused: Bool = false
-    
-    @State var minVolume: Double = 0
-    @State var maxVolume: Double = 0
     
     var currentVolume: Float = 0.5
     
@@ -34,10 +31,10 @@ struct ContentView: View {
     
     var body: some View {
         Text(statusString).padding()
-        Text("Min volume: \(minVolume, specifier: "%.f")/16").padding()
-        Slider(value: $minVolume, in: 00...16, step: 1).padding()
-        Text("Max volume: \(maxVolume, specifier: "%.f")/16").padding()
-        Slider(value: $maxVolume, in: 00...16, step: 1).padding()
+        Text("Min volume: \(locationDelegate.minVolume, specifier: "%.f")/16").padding()
+        Slider(value: $locationDelegate.minVolume, in: 00...16, step: 1).padding()
+        Text("Max volume: \(locationDelegate.maxVolume, specifier: "%.f")/16").padding()
+        Slider(value: $locationDelegate.maxVolume, in: 00...16, step: 1).padding()
         Button(pauseButtonText, action: pause)
     }
     
@@ -64,16 +61,6 @@ struct ContentView: View {
         }
         else {
             return 0
-        }
-    }
-    
-    func updateVolume(volume: Float) {
-        let volumeView = MPVolumeView()
-        if let slider = volumeView.subviews.first as? UISlider
-        {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-                slider.value = volume
-            }
         }
     }
 }
