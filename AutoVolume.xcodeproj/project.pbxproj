@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		092FCAF627790A9D009A914A /* LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FCAF527790A9D009A914A /* LocationDelegate.swift */; };
+		092FCAF627790A9D009A914A /* VolumeLocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FCAF527790A9D009A914A /* VolumeLocationHandler.swift */; };
 		0950DA4D2777C2660029F0C7 /* AutoVolumeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950DA4C2777C2660029F0C7 /* AutoVolumeApp.swift */; };
 		0950DA4F2777C2660029F0C7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950DA4E2777C2660029F0C7 /* ContentView.swift */; };
 		0950DA512777C2670029F0C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0950DA502777C2670029F0C7 /* Assets.xcassets */; };
@@ -16,7 +16,7 @@
 
 /* Begin PBXFileReference section */
 		092FCAF427790837009A914A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		092FCAF527790A9D009A914A /* LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDelegate.swift; sourceTree = "<group>"; };
+		092FCAF527790A9D009A914A /* VolumeLocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeLocationHandler.swift; sourceTree = "<group>"; };
 		0950DA492777C2660029F0C7 /* AutoVolume.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoVolume.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0950DA4C2777C2660029F0C7 /* AutoVolumeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoVolumeApp.swift; sourceTree = "<group>"; };
 		0950DA4E2777C2660029F0C7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 				092FCAF427790837009A914A /* Info.plist */,
 				0950DA4C2777C2660029F0C7 /* AutoVolumeApp.swift */,
 				0950DA4E2777C2660029F0C7 /* ContentView.swift */,
-				092FCAF527790A9D009A914A /* LocationDelegate.swift */,
+				092FCAF527790A9D009A914A /* VolumeLocationHandler.swift */,
 				0950DA502777C2670029F0C7 /* Assets.xcassets */,
 				0950DA522777C2670029F0C7 /* Preview Content */,
 			);
@@ -142,7 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				092FCAF627790A9D009A914A /* LocationDelegate.swift in Sources */,
+				092FCAF627790A9D009A914A /* VolumeLocationHandler.swift in Sources */,
 				0950DA4F2777C2660029F0C7 /* ContentView.swift in Sources */,
 				0950DA4D2777C2660029F0C7 /* AutoVolumeApp.swift in Sources */,
 			);
