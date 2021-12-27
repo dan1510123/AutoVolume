@@ -32,6 +32,9 @@ struct ContentView: View {
         Slider(value: $vlHandler.minVolume, in: 00...16, step: 1).padding()
         Text("Max volume: \(vlHandler.maxVolume, specifier: "%.f")/16").padding()
         Slider(value: $vlHandler.maxVolume, in: 00...16, step: 1).padding()
+        Text("Rate of increase: \(vlHandler.rateOfIncreaseNumerator)/ \(vlHandler.rateOfIncreaseDenominator)").padding()
+        Slider(value: $vlHandler.rateOfIncreaseNumerator, in: 00...1000, step: 1).padding()
+        Slider(value: $vlHandler.rateOfIncreaseDenominator, in: 1...1000, step: 1).padding()
         Button(pauseButtonText, action: pause)
         Text("Current volume: \(vlHandler.currentVolume, specifier: "%.f")/16").padding()
     }
