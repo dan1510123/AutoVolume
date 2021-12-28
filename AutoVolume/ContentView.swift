@@ -19,6 +19,7 @@ struct ContentView: View {
     @State var paused: Bool = false
     
     init() {
+        UIApplication.shared.isIdleTimerDisabled = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = vlHandler
@@ -33,13 +34,17 @@ struct ContentView: View {
             Slider(value: $vlHandler.minVolume, in: 00...16, step: 1).padding()
             Text("Max volume: \(vlHandler.maxVolume, specifier: "%.f")/16").padding()
             Slider(value: $vlHandler.maxVolume, in: 00...16, step: 1).padding()
-            Text("Rate of increase: \(vlHandler.rateOfIncreaseNumerator)/ \(vlHandler.rateOfIncreaseDenominator)").padding()
-            Slider(value: $vlHandler.rateOfIncreaseNumerator, in: 00...1000, step: 1).padding()
-            Slider(value: $vlHandler.rateOfIncreaseDenominator, in: 1...1000, step: 1).padding()
+            Text("Max speed setting: \(vlHandler.maxSpeed) mph").padding()
+            Slider(value: $vlHandler.maxSpeed, in: 00...100, step: 5).padding()
             Text(statusString).padding()
             Button(pauseButtonText, action: pause)
             Text("Current volume: \(vlHandler.currentVolume, specifier: "%.f")/16").padding()
+            Button("Testing Mode", action: test)
         }
+    }
+    
+    func test() {
+        vlHandler.test()
     }
     
     func pause() {
@@ -48,12 +53,14 @@ struct ContentView: View {
             statusString = "Running..."
             pauseButtonText = "Pause"
             paused = false
+            UIApplication.shared.isIdleTimerDisabled = true
         }
         else {
             locationManager.stopUpdatingLocation()
             statusString = "Paused"
             pauseButtonText = "Start"
             paused = true
+            UIApplication.shared.isIdleTimerDisabled = false
         }
     }
 }

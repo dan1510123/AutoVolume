@@ -14,8 +14,7 @@ class VolumeLocationHandler : NSObject, ObservableObject, CLLocationManagerDeleg
     
     @Published var minVolume: Double = 4
     @Published var maxVolume: Double = 16
-    @Published var rateOfIncreaseNumerator: Double = 0
-    @Published var rateOfIncreaseDenominator: Double = 1
+    @Published var maxSpeed: Double = 80
     
     @Published var currentVolume: Double = 0
     
@@ -28,7 +27,7 @@ class VolumeLocationHandler : NSObject, ObservableObject, CLLocationManagerDeleg
         if(shouldUpdateVolume(newSpeed: speed)) {
             let newVolume = calculateNewVolume(newSpeed: speed)
             self.updateVolume(volume: newVolume / 16)
-            self.currentVolume = newVolume / 16
+            self.currentVolume = newVolume
         }
         else {
             self.currentVolume = getCurrentVolume()
@@ -42,7 +41,7 @@ class VolumeLocationHandler : NSObject, ObservableObject, CLLocationManagerDeleg
     
     func calculateNewVolume(newSpeed: Double) -> Double {
         let mphSpeed: Double = newSpeed * 2.23694
-        let newVolume: Double = minVolume + mphSpeed / 80 * rateOfIncreaseNumerator / rateOfIncreaseDenominator * (maxVolume - minVolume)
+        let newVolume: Double = minVolume + mphSpeed / maxSpeed * (maxVolume - minVolume)
         
         return newVolume
     }
@@ -62,6 +61,15 @@ class VolumeLocationHandler : NSObject, ObservableObject, CLLocationManagerDeleg
         {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
                 slider.value = Float(volume)
+            }
+        }
+    }
+    
+    func test() {
+        for i in 00...16 {
+            let x = i
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(x) / 2) {
+                self.updateVolume(volume: Double(i) / 16)
             }
         }
     }
